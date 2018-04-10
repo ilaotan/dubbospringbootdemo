@@ -15,6 +15,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
 @SpringBootApplication
+// 开启swagger
 @EnableSwagger2
 public class DubboConsumerDemo {
 
@@ -27,10 +28,14 @@ public class DubboConsumerDemo {
 
     @Bean
     public Docket api() {
+
         return new Docket(DocumentationType.SWAGGER_2)
-                .select()  // 选择那些路径和api会生成document
-                .apis(RequestHandlerSelectors.basePackage("com.ilaotan.controller")) // 对该包下的api进行监控
-                .paths(PathSelectors.any()) // 对该包下的所有路径进行监控
+                // 选择那些路径和api会生成document
+                .select()
+                // 对该包下的api进行监控
+                .apis(RequestHandlerSelectors.basePackage("com.ilaotan.controller"))
+                // 对该包下的所有路径进行监控
+                .paths(PathSelectors.any())
                 .build();
     }
 
