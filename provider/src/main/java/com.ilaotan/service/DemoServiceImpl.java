@@ -5,17 +5,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.ilaotan.interfaces.DemoService;
+import com.ilaotan.interfaces.IDemoService;
 
 
 //@Service(interfaceClass = DemoService.class, version = "1.0.0")
 @Service(
-        version = "1.0.0",
-        application = "${dubbo.application.id}",
-        protocol = "${dubbo.protocol.id}",
-        registry = "${dubbo.registry.id}", cache = "lru"
+        version = "1.0.0"
+        , application = "${dubbo.application.id}"
+        , protocol = "${dubbo.protocol.id}"
+        , registry = "${dubbo.registry.id}"
 )
-public class DefaultDemoService implements DemoService {
+public class DemoServiceImpl implements IDemoService {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 

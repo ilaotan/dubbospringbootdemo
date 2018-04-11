@@ -4,9 +4,6 @@ package com.ilaotan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.ilaotan.service.DefaultDemoService;
-
-
 
 @SpringBootApplication
 public class DubboProviderDemo {

@@ -9,14 +9,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.ilaotan.interfaces.ICacheService;
 import com.ilaotan.interfaces.IDemoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 
-@RestController
-@Api(description = "DemoConsumer", tags = {"DemoConsumer"})
-public class DemoConsumerController {
+@RestController("cache")
+@Api(description = "CacheController", tags = {"CacheController"})
+public class CacheController {
 
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -27,14 +28,14 @@ public class DemoConsumerController {
             , check = false
             , retries = 2
     )
-    private IDemoService demoService;
+    private ICacheService cacheService;
 
 
 
-    @GetMapping("/sayHello")
-    @ApiOperation(value = "helloworld")
-    public String sayHello(@RequestParam String name) {
-        return demoService.sayHello(name);
+    @GetMapping("/getNews")
+    @ApiOperation(value = "getNews")
+    public String getNews(@RequestParam String type) {
+        return cacheService.getNews(type);
     }
 
 }
