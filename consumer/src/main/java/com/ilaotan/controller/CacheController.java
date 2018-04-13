@@ -26,7 +26,7 @@ public class CacheController {
     @Reference(
             version = "1.0.0"
             , check = false
-            , retries = 2
+            , retries = 0
     )
     private ICacheService cacheService;
 

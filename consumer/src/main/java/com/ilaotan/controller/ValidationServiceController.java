@@ -33,7 +33,7 @@ public class ValidationServiceController {
     @Reference(
             version = "1.0.0"
             , check = false
-            , retries = 2
+            , retries = 0
             // 在客户端开启验证
             , validation = "true"
     )
@@ -53,6 +53,7 @@ public class ValidationServiceController {
         ValidationParameter parameter = new ValidationParameter();
         parameter.setName("张三");
         parameter.setAge(19);
+//        parameter.setEmail("123@qq.com");
         return validationCommon(parameter);
     }
 
