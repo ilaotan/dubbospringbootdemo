@@ -16,6 +16,7 @@ import com.ilaotan.interfaces.IDemo2Service;
         , application = "${dubbo.application.id}"
         , protocol = "${dubbo.protocol.id}"
         , registry = "${dubbo.registry.id}"
+        , group = "aaa"
 )
 public class Demo2ServiceImpl implements IDemo2Service {
 

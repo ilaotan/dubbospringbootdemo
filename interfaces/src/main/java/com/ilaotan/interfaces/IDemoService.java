@@ -13,5 +13,7 @@ public interface IDemoService {
 
     String testWithAsync() throws ExecutionException, InterruptedException;
 
+    String testWithNoAsync();
+
     String testWithSleep(long millis);
 }

@@ -36,6 +36,14 @@ public class DemoServiceImpl implements IDemoService {
     )
     private IDemo2Service demo2Service;
 
+
+    @Reference(
+            version = "1.0.0"
+            , check = false
+            , retries = 0
+    )
+    private IDemo2Service demo2ServiceNoAsync;
+
     @Override
     public String sayHello(String name) {
         logger.warn("Hello, {}(from Spring Boot)", name);
@@ -66,6 +74,15 @@ public class DemoServiceImpl implements IDemoService {
 
         logger.debug("testWithAsync  -->  sayHelloWithSleep 拿到值 {}", res);
 
+        return res;
+    }
+
+    @Override
+    public String testWithNoAsync() {
+
+        String res = demo2ServiceNoAsync.sayHelloWithSleep("张三年");
+
+        logger.debug("testWithNoAsync  -->  sayHelloWithSleep 拿到值 {}", res);
         return res;
     }
 

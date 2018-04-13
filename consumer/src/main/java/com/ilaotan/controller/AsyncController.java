@@ -34,7 +34,7 @@ public class AsyncController {
             , check = false
             , retries = 0
             , async = true
-            //异步时,不配置timeout,使用sleep会报错,具体报错内容你可以注释调timeout后试试.
+            // 异步时,不加timeout会报错.
             , timeout = 60000
     )
     private IDemoService demoService;
@@ -92,6 +92,41 @@ public class AsyncController {
         logger.debug("testAsyncWithAsync  start");
 
         demoService.testWithAsync();
+        Future<String> cFuture = RpcContext.getContext().getFuture();
+
+
+        logger.debug("请求A");
+        // 此调用会立即返回null
+        demoService.testWithSleep(4000);
+        // 拿到调用的Future引用，当结果返回后，会被通知和设置到此Future
+        Future<String> aFuture = RpcContext.getContext().getFuture();
+
+
+        String a = aFuture.get();
+        String res = cFuture.get();
+
+        logger.debug("已经拿到值 {},  {}", res, a);
+        return res + a;
+    }
+
+
+    /**
+     * 异步调用的
+     *
+     *
+     * @return
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
+    @GetMapping("/testAsyncWithNoAsync")
+    @ApiOperation(value = "testAsyncWithNoAsync")
+    public String testAsyncWithNoAsync() throws ExecutionException, InterruptedException {
+
+        //使用异步姿势调用
+
+        logger.debug("testAsyncWithNoAsync  start");
+
+        demoService.testWithNoAsync();
         Future<String> cFuture = RpcContext.getContext().getFuture();
 
 
