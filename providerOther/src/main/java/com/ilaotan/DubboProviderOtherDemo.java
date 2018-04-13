@@ -9,11 +9,11 @@ import com.alibaba.dubbo.config.spring.context.annotation.DubboComponentScan;
 
 @SpringBootApplication
 @DubboComponentScan(basePackages = "com.ilaotan.service")
-public class DubboProviderDemo {
+public class DubboProviderOtherDemo {
 
     public static void main(String[] args) {
 
-        SpringApplication.run(DubboProviderDemo.class,args);
+        SpringApplication.run(DubboProviderOtherDemo.class,args);
 
     }
 
