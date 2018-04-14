@@ -1,6 +1,9 @@
 
 package com.ilaotan.controller;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,6 +30,7 @@ public class DemoConsumerController {
             version = "1.0.0"
             , check = false
             , retries = 0
+            , timeout = 60000
     )
     private IDemoService demoService;
 
@@ -41,11 +45,21 @@ public class DemoConsumerController {
 
     @GetMapping("/setAttachment")
     @ApiOperation(value = "setAttachment")
-    public String setAttachment(@RequestParam String name) {
+    public String setAttachment(@RequestParam String name) throws ExecutionException, InterruptedException {
 
         RpcContext.getContext().setAttachment("flowId", "snowflakeId" + System.currentTimeMillis());
 
-        return demoService.sayHello2(name);
+        //使用异步姿势调用
+
+        logger.debug("setAttachment  start");
+
+        demoService.sayHello2(name);
+        Future<String> cFuture = RpcContext.getContext().getFuture();
+
+
+        String a = cFuture.get();
+
+        return a;
     }
 
 

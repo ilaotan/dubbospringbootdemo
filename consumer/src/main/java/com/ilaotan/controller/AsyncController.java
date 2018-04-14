@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.rpc.RpcContext;
+import com.ilaotan.interfaces.IDemoAsyncService;
 import com.ilaotan.interfaces.IDemoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,7 +38,17 @@ public class AsyncController {
             // 异步时,不加timeout会报错.
             , timeout = 60000
     )
+    private IDemoAsyncService demoAsyncService;
+
+    @Reference(
+            version = "1.0.0"
+            , check = false
+            , retries = 0
+            , timeout = 60000
+    )
     private IDemoService demoService;
+
+
 
 
     /**
@@ -58,14 +69,14 @@ public class AsyncController {
 
 
         logger.debug("请求B");
-        demoService.testWithSleep(2000);
+        demoAsyncService.testWithSleep(2000);
         // 拿到调用的Future引用，当结果返回后，会被通知和设置到此Future
         Future<String> bFuture = RpcContext.getContext().getFuture();
 
 
         logger.debug("请求A");
         // 此调用会立即返回null
-        demoService.testWithSleep(4000);
+        demoAsyncService.testWithSleep(4000);
         // 拿到调用的Future引用，当结果返回后，会被通知和设置到此Future
         Future<String> aFuture = RpcContext.getContext().getFuture();
 
@@ -91,13 +102,13 @@ public class AsyncController {
 
         logger.debug("testAsyncWithAsync  start");
 
-        demoService.testWithAsync();
+        demoAsyncService.testWithAsync();
         Future<String> cFuture = RpcContext.getContext().getFuture();
 
 
         logger.debug("请求A");
         // 此调用会立即返回null
-        demoService.testWithSleep(4000);
+        demoAsyncService.testWithSleep(4000);
         // 拿到调用的Future引用，当结果返回后，会被通知和设置到此Future
         Future<String> aFuture = RpcContext.getContext().getFuture();
 
@@ -126,13 +137,13 @@ public class AsyncController {
 
         logger.debug("testAsyncWithNoAsync  start");
 
-        demoService.testWithNoAsync();
+        demoAsyncService.testWithNoAsync();
         Future<String> cFuture = RpcContext.getContext().getFuture();
 
 
         logger.debug("请求A");
         // 此调用会立即返回null
-        demoService.testWithSleep(4000);
+        demoAsyncService.testWithSleep(4000);
         // 拿到调用的Future引用，当结果返回后，会被通知和设置到此Future
         Future<String> aFuture = RpcContext.getContext().getFuture();
 

@@ -131,7 +131,8 @@
             <artifactId>cache-api</artifactId>
             <version>${jcache.version}</version>
         </dependency>
-        <!-- ehcache3实现的jcache -->
+
+        <!-- ehcache2实现的jcache -->
         <!-- https://mvnrepository.com/artifact/org.ehcache/jcache -->
         <dependency>
             <groupId>org.ehcache</groupId>

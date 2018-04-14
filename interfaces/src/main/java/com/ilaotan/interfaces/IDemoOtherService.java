@@ -3,9 +3,9 @@ package com.ilaotan.interfaces;
 /**
  * 类的描述.
  *
- * @author tan liansheng on 2018/4/13 15:28
+ * @author tan liansheng on 2018/4/14 11:44
  */
-public interface IDemo2Service {
+public interface IDemoOtherService {
 
     String sayHelloWithSleep(String name);
 

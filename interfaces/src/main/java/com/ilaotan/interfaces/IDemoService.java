@@ -11,9 +11,6 @@ public interface IDemoService {
 
     String sayHello2(String name);
 
-    String testWithAsync() throws ExecutionException, InterruptedException;
 
-    String testWithNoAsync();
 
-    String testWithSleep(long millis);
 }
