@@ -1,8 +1,6 @@
 package com.ilaotan.jwt;
 
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,8 +25,6 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Autowired
-    protected JwtTool jwtTool;
 
 
     @Override
@@ -46,33 +42,33 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
 
                 String token = request.getHeader("_token");
 //                System.out.println(token+"----token---");
-                Claims claims;
+//                Claims claims;
+//
+//                try {
+//                    claims = jwtTool.parseJWT(token);
+//                }
+//                catch (ExpiredJwtException e1) {
+//                    e1.printStackTrace();
+//                    //
+//                    response.setHeader("_error", 1024 + "");
+//                    return false;
+//                } catch (Exception e2) {
+//                    e2.printStackTrace();
+//                    response.setHeader("_error", 1025 + "");
+//                    return false;
+//                }
+//
+//
+//                //可以将一些东西塞到request里方便方法内使用
+////                    jwtMap.put("jti",user.getId());
+////                    jwtMap.put("phone",user.getPhone());
+////                    jwtMap.put("jwt",user.getJwt());
+//                String userId = claims.getId();
+//                String phone = claims.getIssuer();
 
-                try {
-                    claims = jwtTool.parseJWT(token);
-                }
-                catch (ExpiredJwtException e1) {
-                    e1.printStackTrace();
-                    //
-                    response.setHeader("_error", 1024 + "");
-                    return false;
-                } catch (Exception e2) {
-                    e2.printStackTrace();
-                    response.setHeader("_error", 1025 + "");
-                    return false;
-                }
 
-
-                //可以将一些东西塞到request里方便方法内使用
-//                    jwtMap.put("jti",user.getId());
-//                    jwtMap.put("phone",user.getPhone());
-//                    jwtMap.put("jwt",user.getJwt());
-                String userId = claims.getId();
-                String phone = claims.getIssuer();
-
-
-                request.setAttribute("_jwtUserId", userId);
-                request.setAttribute("_jwtPhone", phone);
+//                request.setAttribute("_jwtUserId", userId);
+//                request.setAttribute("_jwtPhone", phone);
 
             }
         }

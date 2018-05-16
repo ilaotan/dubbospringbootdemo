@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Bean;
 import com.alibaba.dubbo.config.spring.context.annotation.DubboComponentScan;
 import com.ilaotan.controller.DemoConsumerController;
 import com.ilaotan.jwt.JwtInterceptor;
-import com.ilaotan.jwt.JwtTool;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -41,10 +40,6 @@ public class DubboConsumerDemo {
         return new JwtInterceptor();
     }
 
-    @Bean
-    public JwtTool jwtTool(){
-        return new JwtTool("abc123");
-    }
 
 
 
