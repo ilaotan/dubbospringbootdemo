@@ -10,3 +10,4 @@ public interface ICacheService {
     String getNews(String type);
 
 }
+                                                  
