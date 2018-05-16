@@ -22,10 +22,25 @@ import sun.misc.BASE64Decoder;
  */
 public class JwtTool {
 
+    // rsa公私 生成 注意 java要用PKCS8  其他平台(IOS等)要用PKCS1
 
-    String privateKeyStr = "MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAInu8Jd6U7UCoethzYwMwC4X7tRgKaYMH2PliKPdgtoc+1lWiQvsu9uHpOAzqWBWBeu3k342Mm1PGYr91yVdntosJ4Y3Jyn7DGh3Tvznnefu4ZXjTb6rHYBpeKUZ+iXujeMSJYwy/QVefzMHc6leXWGQByymUYWraI4amGNoj0BlAgMBAAECgYApoERXUoFkhRDcej2P4GE3B935lbO7+riWazTbTwQoUsq/4U+mm6Dt1Xe6eZzKB+vtgQ8v7ac2OcLZoVWGX0SK3WmweNNvGkubwclkZWiHEfh6/OnptW3WWxZqXAmy1oAftZPMlQhmyPdhIcWUqINGji3KilolJELxlLleIsMVwQJBAMX0p2q96F89cyYyQvMV2WHkumidPwKon1NTHfrF760XyIf5/w9n+3fGFhSJ3gbaxGVfJ45GVVwAd040L81wab0CQQCyYMUjL9Ase86zZEAyVqhXTZ0L+8VhlTcfxEa1Uu3LYG7pFFqsfNYb3iF22hM60/ArJMmg+pn6Ie+2enq+IVfJAkA/YrSM6FxUyr9pVqS7Y56kyvGpd9hqSIYjzzSFTQYO3dO3PqSeUURjOMlvMCoo9bn3X72xv/GrMPcC0pEP7lPdAkBJ+9UIKRagvKEYyqXNux+LRkey5rQRK0B3zoK9Ri4WwmJ+DdEl5YkwectLblu3dJwSaOmv+QDQPC8ecmJiZZXxAkBqjUUTSeaJ5L84UH/4wySkmwpKy5AXuYvekX9K5BwQx+KhxJ6ajC3YIJanA4UYl/xRsI3O6ngw6DE6PnQX16wj";
+    /*
+    # PKCS1私钥生成
+    openssl genrsa -out private.pem 1024
 
-    String publicKeyStr = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCJ7vCXelO1AqHrYc2MDMAuF+7UYCmmDB9j5Yij3YLaHPtZVokL7Lvbh6TgM6lgVgXrt5N+NjJtTxmK/dclXZ7aLCeGNycp+wxod078553n7uGV402+qx2AaXilGfol7o3jEiWMMv0FXn8zB3OpXl1hkAcsplGFq2iOGphjaI9AZQIDAQAB";
+    # 生成公钥
+    openssl rsa -in private.pem -pubout -out public.pem
+
+    # PKCS1私钥转换为PKCS8(该格式一般Java调用)
+    openssl pkcs8 -topk8 -inform PEM -in private.pem -outform pem -nocrypt -out pkcs8.pem
+
+
+    * */
+
+
+    String privateKeyStr = "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBALNuM1L2Gk3ff02N0GTR9vfuJfZ3p4/dNgeqxqrGGKqdm6QvqVm8cwsGayImwuabpniBsmIOJNYcibThO0QofE08hYlDvHjGmAb6dajoOHLln+nHQfbaqqTo7wCReQUtBrfqFyXVIvexAWKxMMDiySuAGOZv13M3cBc9NsPJ0bJ/AgMBAAECgYBCLIBNNmpZEfY3OfgDVtRId9IUZeisTB8jEL6YONrcAahnExTX/YJILKPSQo1a00i/5MVPGHxJYtj+lppu9qdwjm+NpmJcFh0A6pWp7MDUnunQBG92Lp28jLZ1oUeOOuh2QwRL2nzLOnaYRnLIyS12ZlESlKJGhZA3l09dPf8ecQJBAOKAqeQRBu3OIjw93Rl9mp2R/gTllI7LWYwn6EtjhsvgUqv0HvTk3Pr3TXbsm3fq/8JnDtIVS3P+aV/ebKEXTCsCQQDKzDTT5vxm1QvUn6xuQNCH9bLWTMPt53AGosMI9SbopvHHNTw6dJHPtyR9XRZFlSgUIMpxf1opApTv2WIYsET9AkEAzigRedXNmrDeFDqyfTsHeZehvs8/MeEANkM0eTmzPOmGFaBydK/COmLRDQc6UiGAfG7U3H4pWQAc5PdLpCvSVQJBAJhX7xeAXfuh79E6Yf4xEnYQTNhPsp/1TGKvwnPoNeJwBxDvHN+M0jyICBFk7GY5NnJob6vzT3efSOMlGlwRjsECQEzVhVqPRvShj51JztgeRRwLQbwYZabY3B7+XqnWjTOVIK4/ipJKzzmsAUIBwsjLC9b3GRMsG1nQLYqvjlQvazM=";
+
+    String publicKeyStr = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCzbjNS9hpN339NjdBk0fb37iX2d6eP3TYHqsaqxhiqnZukL6lZvHMLBmsiJsLmm6Z4gbJiDiTWHIm04TtEKHxNPIWJQ7x4xpgG+nWo6Dhy5Z/px0H22qqk6O8AkXkFLQa36hcl1SL3sQFisTDA4skrgBjmb9dzN3AXPTbDydGyfwIDAQAB";
 
     private String secret;
 
