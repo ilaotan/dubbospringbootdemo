@@ -32,13 +32,6 @@
             <version>0.9.0</version>
         </dependency>
 
-        <!-- 第2套 jwt jar包 -->
-        <dependency>
-            <groupId>com.auth0</groupId>
-            <artifactId>java-jwt</artifactId>
-            <version>3.3.0</version>
-        </dependency>
-
 
         <!-- 屏蔽官方提供的页面 使用第三方界面 -->
         <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
