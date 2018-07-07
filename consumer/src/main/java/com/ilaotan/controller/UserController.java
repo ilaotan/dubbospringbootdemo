@@ -62,10 +62,10 @@ public class UserController {
     // 添加jwt注解
     @SonliJwt
     @GetMapping("/changePwd")
-    @ApiOperation(value = "changePwd", notes = "用户修改密码接口 必须传入token")
+    @ApiOperation(value = "changePwd", notes = "用户修改密码接口 必须传入token 此动作会修改sec 和最后登录时间")
     public String changePwd(HttpServletRequest request){
 
-        String mobileNum = request.getParameter("_jwtPhone");
+        String mobileNum = (String) request.getAttribute("_jwtPhone");
 
         SUser user = UserStaticCache.getUserByPhone(mobileNum);
 
@@ -77,6 +77,7 @@ public class UserController {
 
         // todo 修改密码后 强制让用户重新登录???
         user.setSec(JwtTool.randomStr(6));
+        user.setLoginTime(new Date());
         UserStaticCache.saveUser(user);
 
         return "success";
@@ -90,7 +91,7 @@ public class UserController {
     @ApiOperation(value = "readData", notes = "用户假装请求数据 必须传入token")
     public String readData(HttpServletRequest request){
 
-        String mobileNum = request.getParameter("_jwtPhone");
+        String mobileNum = (String) request.getAttribute("_jwtPhone");
 
        StringBuilder stringBuilder = new StringBuilder();
        stringBuilder.append("用户").append(mobileNum).append("你好");

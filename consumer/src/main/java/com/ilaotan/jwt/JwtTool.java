@@ -95,6 +95,8 @@ public class JwtTool {
 
 
         long nowMillis = System.currentTimeMillis();
+
+        // 这个日期是签发日期 这里约定要跟数据库里最后登录时间一致  对应jwt中的iat字段
         Date now = new Date(nowMillis);
 
         byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(secret);
