@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import com.alibaba.dubbo.config.spring.context.annotation.DubboComponentScan;
 import com.ilaotan.controller.DemoConsumerController;
@@ -32,6 +33,7 @@ public class DubboConsumerDemo {
 
         ApplicationContext run = SpringApplication.run(DubboConsumerDemo.class, args);
 
+        System.out.println("app start success");
     }
 
     //////////////////////////jwt1/////////////////////////////////
@@ -41,10 +43,10 @@ public class DubboConsumerDemo {
         return new JwtInterceptor();
     }
 
-    @Bean
-    public JwtTool jwtTool(){
-        return new JwtTool("abc123");
-    }
+//    @Bean
+//    public JwtTool jwtTool(){
+//        return new JwtTool("abc123");
+//    }
 
 
 

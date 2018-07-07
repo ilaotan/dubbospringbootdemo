@@ -1,6 +1,10 @@
 package com.ilaotan.jwt;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.ilaotan.controller.UserStaticCache;
+import com.ilaotan.entity.SUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 
@@ -27,13 +31,10 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Autowired
-    protected JwtTool jwtTool;
 
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws
-            Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         if (handler instanceof HandlerMethod) {
             HandlerMethod handlerMethod = (HandlerMethod) handler;
@@ -45,30 +46,38 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
             if (annotation != null) {
 
                 String token = request.getHeader("_token");
-//                System.out.println(token+"----token---");
                 Claims claims;
 
+                String userId;
+                String phone;
+
                 try {
+
+                    String json = JwtTool.getSignData(token);
+                    JSONObject jsonObject = JSON.parseObject(json);
+                    //拿到
+                    userId = jsonObject.getString("jti");
+                    phone = jsonObject.getString("iss");
+
+                    //todo 可怕 这里需要拿到用户信息 才能保证用户的sec更新后 jwt主动拦截掉.
+                    //todo 也就是说 提供api接口的服务需要依赖User基础服务
+                    SUser sUser = UserStaticCache.getUserById(userId);
+
+                    JwtTool jwtTool = new JwtTool(sUser.getSec());
+
                     claims = jwtTool.parseJWT(token);
                 }
                 catch (ExpiredJwtException e1) {
                     e1.printStackTrace();
-                    //
+                    // token 过期 请求用户自动登录
                     response.setHeader("_error", 1024 + "");
                     return false;
                 } catch (Exception e2) {
                     e2.printStackTrace();
+                    // token其他异常
                     response.setHeader("_error", 1025 + "");
                     return false;
                 }
-
-
-                //可以将一些东西塞到request里方便方法内使用
-//                    jwtMap.put("jti",user.getId());
-//                    jwtMap.put("phone",user.getPhone());
-//                    jwtMap.put("jwt",user.getJwt());
-                String userId = claims.getId();
-                String phone = claims.getIssuer();
 
 
                 request.setAttribute("_jwtUserId", userId);

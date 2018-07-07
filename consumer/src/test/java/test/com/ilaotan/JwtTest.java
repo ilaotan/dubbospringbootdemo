@@ -8,6 +8,7 @@ import org.springframework.util.Base64Utils;
 import com.ilaotan.jwt.JwtTool;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.impl.TextCodec;
 import org.hibernate.validator.constraints.br.TituloEleitoral;
 import org.junit.Test;
 
@@ -20,8 +21,8 @@ public class JwtTest extends Base {
 
 
 
-    @Autowired
-    private JwtTool jwtTool;
+
+    private JwtTool jwtTool = new JwtTool("abc123");
 
     @Test
     public void getSign(){
@@ -34,6 +35,11 @@ public class JwtTest extends Base {
     @Test
     public void validate(){
         String str1 = "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJhYmMxMjM0NTY3OCIsImlhdCI6MTUyNjQ1Mjc2Niwic3ViIjoiIiwiaXNzIjoiMTU2Mjg5ODYyMTQiLCJleHAiOjE1MjY0NTI3NjZ9.DOEwPoupqNw1TlRD6ByOvHJ-sXocr8Lr6JMkPVYFrAM";
+
+        String ttt = "eyJqdGkiOiJhYmMxMjM0NTY3OCIsImlhdCI6MTUyNjQ1Mjc2Niwic3ViIjoiIiwiaXNzIjoiMTU2Mjg5ODYyMTQiLCJleHAiOjE1MjY0NTI3NjZ9";
+
+        final byte[] decode = TextCodec.BASE64.decode(ttt);
+        System.out.println(new String(decode));
 
         try {
             System.out.println(jwtTool.parseJWT(str1));
