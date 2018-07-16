@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -48,6 +49,14 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
             if (annotation != null) {
 
                 String token = request.getHeader("_token");
+
+                if (StringUtils.isEmpty(token)) {
+                    response.setHeader("Content-type", "text/plain;charset=UTF-8");
+                    response.setHeader("_error", 1028 + "");
+                    response.getWriter().write("非法请求");
+                    return false;
+                }
+
                 Claims claims;
 
                 String userId;
