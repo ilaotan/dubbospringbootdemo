@@ -10,6 +10,10 @@ import com.alibaba.dubbo.rpc.RpcContext;
 import com.alibaba.dubbo.rpc.RpcException;
 
 /**
+ * 需求: 需要在提供方查询到调用方信息,目前只能查到ip. application拿不到对方传递过来的.
+ *      (RpcContext.getContext().getUrl()拿到的是本地的而非远端的)
+ *
+ * 出处: https://github.com/apache/incubator-dubbo/issues/502
  * 目的: 作为消费者远程调用服务时,提供自己的身份信息application
  * 调用方使用 RpcContext.getContext().getAttachment("application") 拿到信息
  * 注意本类要配合在META-INF/dubbo/com.alibaba.dubbo.rpc.Filter中添加内容
