@@ -5,14 +5,18 @@ import java.security.Key;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.Date;
+import java.util.Random;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
+
+import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.impl.TextCodec;
 import sun.misc.BASE64Decoder;
 
 /**
@@ -21,6 +25,10 @@ import sun.misc.BASE64Decoder;
  * @author tan liansheng on 2018/5/16 13:42
  */
 public class JwtTool {
+
+
+    private static final String ALLCHAR = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
 
     // rsa公私 生成 注意 java要用PKCS8  其他平台(IOS等)要用PKCS1
 
@@ -54,6 +62,31 @@ public class JwtTool {
     private SignatureAlgorithm rsaSA              = SignatureAlgorithm.RS512;
 
 
+    public static String randomStr(int length) {
+        StringBuffer sb = new StringBuffer();
+        Random random = new Random();
+        for (int i = 0; i < length; i++) {
+            sb.append(ALLCHAR.charAt(random.nextInt(ALLCHAR.length())));
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 纯粹拿jwt里的数据 不考虑有效性情况下
+     *
+     * @param token
+     * @return
+     */
+    public static String getSignData(String token){
+        String[] tokens = token.split("\\.");
+
+
+        return TextCodec.BASE64URL.decodeToString(tokens[1]);
+
+//        return new String(TextCodec.BASE64.decode(tokens[1]));
+    }
+
+
     public JwtTool(String secret) {
         this.secret = secret;
     }
@@ -62,6 +95,8 @@ public class JwtTool {
 
 
         long nowMillis = System.currentTimeMillis();
+
+        // 这个日期是签发日期 这里约定要跟数据库里最后登录时间一致  对应jwt中的iat字段
         Date now = new Date(nowMillis);
 
         byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(secret);
