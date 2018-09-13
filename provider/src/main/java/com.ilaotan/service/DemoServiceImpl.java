@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.dubbo.rpc.RpcContext;
+import com.alibaba.fastjson.JSON;
 import com.ilaotan.interfaces.IDemoService;
 
 
@@ -23,6 +24,16 @@ public class DemoServiceImpl implements IDemoService {
 
     @Override
     public String sayHello(String name) {
+
+        String application = RpcContext.getContext().getUrl().getParameter("application");
+        System.out.println(JSON.toJSONString(RpcContext.getContext().getUrl()));
+
+        System.out.println(RpcContext.getContext().getAttachment("application"));
+
+        String serverIP = RpcContext.getContext().getRemoteAddressString();
+        logger.warn("application : {}", application);
+        logger.warn("serverIp: {}", serverIP);
+
         logger.warn("Hello, {}(from Spring Boot)", name);
         return "Hello, " + name + " (from Spring Boot)";
     }

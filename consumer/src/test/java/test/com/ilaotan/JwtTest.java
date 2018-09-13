@@ -65,6 +65,8 @@ public class JwtTest extends Base {
     @Test
     public void validateRSA(){
 
+        // http://www1.tc711.com/tool/BASE64.htm
+        // 以 . 为界 前两组字符串都能解析出字符串来
         String jtwstr = "eyJhbGciOiJSUzI1NiJ9.eyJqdGkiOiJhYmMxMjM0NTY3OCIsImlhdCI6MTUyNjQ2NTQxNiwic3ViIjoiIiwiaXNzIjoiMTU2Mjg5ODYyMTQiLCJleHAiOjE1MjY0NjU3NzZ9.Q6-olz1dGaPr0umCkL5xr27jDzpbC__uDnw9XRjv4Oby7pRK5M79hBFFyOpvfr5Dz-NdHQ7GIVWlfCtOjFCLw_edH91GuxZ6Hu--gL0v98euODAMUyJ7N7401O-xJ5FZCgbg_HRkCa6tARovBRhuozWuXwhSdJu7n4i3JGO4JjQ";
         try {
             System.out.println(jwtTool.parseJWTRSA(jtwstr));
