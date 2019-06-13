@@ -4,17 +4,14 @@ package com.ilaotan.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.alibaba.dubbo.config.annotation.Service;
-import com.alibaba.dubbo.rpc.RpcContext;
 import com.ilaotan.interfaces.IDemoService;
+import org.apache.dubbo.config.annotation.Service;
+import org.apache.dubbo.rpc.RpcContext;
 
 
 //@Service(interfaceClass = DemoService.class, version = "1.0.0")
 @Service(
         version = "1.0.0"
-        , application = "${dubbo.application.id}"
-        , protocol = "${dubbo.protocol.id}"
-        , registry = "${dubbo.registry.id}"
 )
 public class DemoServiceImpl implements IDemoService {
 

@@ -5,8 +5,8 @@ import java.util.concurrent.ConcurrentMap;
 
 import org.springframework.context.ApplicationContext;
 
-import com.alibaba.dubbo.config.RegistryConfig;
-import com.alibaba.dubbo.config.spring.ReferenceBean;
+import org.apache.dubbo.config.RegistryConfig;
+import org.apache.dubbo.config.spring.ReferenceBean;
 
 public class ReferenceUtil {
 
