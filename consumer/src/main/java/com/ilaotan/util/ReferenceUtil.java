@@ -34,7 +34,7 @@ public class ReferenceUtil {
         boolean check = false;
         int retries = 0;
 
-        RegistryConfig registryConfig = (RegistryConfig) applicationContext.getBean("witparking-dubbo-registry");
+        RegistryConfig registryConfig = applicationContext.getBean(RegistryConfig.class);
 
         String key = "/" + group + "/" + interfaceName + ":";
         ReferenceBean<?> referenceConfig = referenceConfigs.get(key);

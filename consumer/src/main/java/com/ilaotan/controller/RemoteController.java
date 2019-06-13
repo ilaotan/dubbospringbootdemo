@@ -19,7 +19,7 @@ import io.swagger.annotations.ApiOperation;
  * @author tan liansheng on 2018/4/13 13:32
  */
 
-@RestController("remote")
+@RestController
 @Api(description = "RemoteController", tags = {"RemoteController"})
 public class RemoteController {
 
