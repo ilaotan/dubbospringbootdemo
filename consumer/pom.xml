@@ -48,18 +48,18 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.1.5.RELEASE</version>
-                <configuration><!-- 指定该Main Class为全局的唯一入口 -->
-                    <mainClass>${mainClass}</mainClass>
+                <configuration>
+                    <layers>
+                        <enabled>true</enabled>
+                        <configuration>${project.basedir}/src/layers.xml</configuration>
+                    </layers>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
                 </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <!-- clean package -Dmaven.test.skip=true -Prepackage -->
-                            <goal>repackage</goal><!--可以把依赖的包都打包到生成的Jar包中-->
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
 
             <!-- 保证application.properties中的变量能够在maven中读取,用${xx}占位替换 -->

@@ -4,21 +4,23 @@ package com.ilaotan.controller;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ilaotan.interfaces.IDemoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.dubbo.config.annotation.Reference;
 import org.apache.dubbo.rpc.RpcContext;
 
 
 @RestController
+@RequestMapping("demo")
 @Api(description = "DemoConsumer", tags = {"DemoConsumer"})
 public class DemoConsumerController {
 
@@ -26,7 +28,7 @@ public class DemoConsumerController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
-    @Reference(
+    @DubboReference(
             version = "1.0.0"
             , check = false
             , retries = 0
@@ -39,7 +41,14 @@ public class DemoConsumerController {
     @GetMapping("/sayHello")
     @ApiOperation(value = "helloworld")
     public String sayHello(@RequestParam String name) {
-        return demoService.sayHello(name);
+        try {
+
+            return demoService.sayHello(name);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return "error";
+        }
+
     }
 
 

@@ -1,16 +1,16 @@
 
 package com.ilaotan.service;
 
+import org.apache.dubbo.config.annotation.DubboService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ilaotan.interfaces.IDemoService;
-import org.apache.dubbo.config.annotation.Service;
 import org.apache.dubbo.rpc.RpcContext;
 
 
 //@Service(interfaceClass = DemoService.class, version = "1.0.0")
-@Service(
+@DubboService(
         version = "1.0.0"
 )
 public class DemoServiceImpl implements IDemoService {
