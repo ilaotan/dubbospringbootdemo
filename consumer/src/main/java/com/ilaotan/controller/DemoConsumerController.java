@@ -32,7 +32,7 @@ public class DemoConsumerController {
             version = "1.0.0"
             , check = false
             , retries = 0
-            , timeout = 60000
+            , timeout = 5000
     )
     private IDemoService demoService;
 
