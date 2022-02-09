@@ -117,6 +117,17 @@
             <version>${nacos.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-metadata-report-nacos</artifactId>
+            <version>${dubbo.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-monitor-default</artifactId>
+            <version>${dubbo.version}</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
         <dependency>

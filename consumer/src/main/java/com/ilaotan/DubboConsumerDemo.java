@@ -20,7 +20,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 // 开启swagger
 @EnableSwagger2
-@DubboComponentScan(basePackages = "com.ilaotan")
 public class DubboConsumerDemo {
 
 
