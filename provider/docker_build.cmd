@@ -8,7 +8,7 @@ set c=%TIME:~3,2%
 set ti=%a%%b%%c%
 
 set v=latest
-set v=v3
+set v=v4
 
 docker build . -t registry.cn-hangzhou.aliyuncs.com/img_pub/dubbo-provider:%v%
 docker push registry.cn-hangzhou.aliyuncs.com/img_pub/dubbo-provider:%v%
