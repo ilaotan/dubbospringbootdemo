@@ -11,10 +11,10 @@ public class DubboTool {
     private static ReferenceConfig<GenericService> reference;
 
     /**
-     * @param localDubboPort  本地dubbo端口  来源于 dubbo.protocol.port
+     * @param localUrl  本地dubbo地址+端口  端口来源于dubbo.protocol.port
      * @param interfaceName  dubbo接口路径 比如 com.ilaotan.interfaces.IDemoService
      */
-    public DubboTool(Integer localDubboPort, String interfaceName) {
+    public DubboTool(String localUrl, String interfaceName) {
 
         RegistryConfig config = new RegistryConfig();
         config.setGroup("dubbo");
@@ -33,7 +33,7 @@ public class DubboTool {
         reference.setInterface(intf);
         reference.setVersion(version);
         reference.setGroup(group);
-        reference.setUrl("dubbo://127.0.0.1:" + localDubboPort);
+        reference.setUrl(localUrl);
         //Keep it consistent with the ConfigManager cache
         reference.setSticky(false);
 

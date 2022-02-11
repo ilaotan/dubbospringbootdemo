@@ -4,7 +4,7 @@ public class DubboInsTest {
 
     public static void main(String[] args) {
 
-        DubboTool dubboTool = new DubboTool(22222, "com.ilaotan.interfaces.IDemoService");
+        DubboTool dubboTool = new DubboTool("dubbo://127.0.0.1:22222", "com.ilaotan.interfaces.IDemoService");
 //        String[] strArray={"java.lang.String"};
 //        Object[] argsArray={"sdfsdfsd"};
         Object res1 = dubboTool.run("sayHello", new String[]{"java.lang.String"}, new Object[]{"1111"});
