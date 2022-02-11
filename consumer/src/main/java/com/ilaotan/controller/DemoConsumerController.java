@@ -8,6 +8,7 @@ import org.apache.dubbo.config.annotation.DubboReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,13 +29,14 @@ public class DemoConsumerController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
-    @DubboReference(
-            version = "1.0.0"
-            , check = false
-            , retries = 0
-            , timeout = 5000
-    )
-    private IDemoService demoService;
+//    @DubboReference(
+//            version = "1.0.0"
+//            , check = false
+//            , retries = 0
+//            , timeout = 5000
+//    )
+    @Autowired
+    private IDemoService iDemoService;
 
 
 
@@ -42,8 +44,7 @@ public class DemoConsumerController {
     @ApiOperation(value = "helloworld")
     public String sayHello(@RequestParam String name) {
         try {
-
-            return demoService.sayHello(name);
+            return iDemoService.sayHello(name);
         }catch (Exception e) {
             e.printStackTrace();
             return "error";
@@ -62,7 +63,7 @@ public class DemoConsumerController {
 
         logger.debug("setAttachment  start");
 
-        demoService.sayHello2(name);
+        iDemoService.sayHello2(name);
         Future<String> cFuture = RpcContext.getContext().getFuture();
 
 

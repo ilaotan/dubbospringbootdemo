@@ -20,7 +20,10 @@ COPY --from=builder application/application/ ./
 ENV JAVA_OPTS="-Xms256m -Xmx256m -Xmn128m"
 ENV SPRING_OPTS=""
 
+
+
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 #CMD java ${JAVA_OPTS} ${SPRING_OPTS} ${DEBUG_OPTS} org.springframework.boot.loader.JarLauncher > /dev/null 2>&1
 CMD java ${JAVA_OPTS} org.springframework.boot.loader.JarLauncher ${SPRING_OPTS}
+
 

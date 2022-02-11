@@ -9,9 +9,8 @@ import com.ilaotan.interfaces.IDemoService;
 import org.apache.dubbo.rpc.RpcContext;
 
 
-//@Service(interfaceClass = DemoService.class, version = "1.0.0")
 @DubboService(
-        version = "1.0.0"
+        version = "1.0.0", protocol = "dubbo", timeout = 5000
 )
 public class DemoServiceImpl implements IDemoService {
 
@@ -32,12 +31,6 @@ public class DemoServiceImpl implements IDemoService {
         logger.warn("Hello, {}(from Spring Boot), your flowId is {}", name, flowId);
         return "Hello, " + name + " (from Spring Boot), your flowId is " + flowId;
     }
-
-
-
-
-
-
 
 
 }
