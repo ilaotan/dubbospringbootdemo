@@ -26,7 +26,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 
 @DubboService(
-        version = "1.0.0", protocol = "dubbo", timeout = 5000, filter = "-monitor"
+        version = "1.0.0", protocol = "tri", timeout = 5000, filter = "-monitor"
 )
 public class MonitorServiceImpl implements MonitorService {
     private List<URL> collectedStatistics = new CopyOnWriteArrayList<>();

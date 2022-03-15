@@ -12,6 +12,6 @@
 <!--                     protocol="dubbo" timeout="60000" check="false" retries="0"/>-->
 
     <dubbo:reference id="demoService" interface="com.ilaotan.interfaces.IDemoService" version="1.0.0"
-                     registry="witparking-dubbo-registry" protocol="dubbo" timeout="5000" check="false" retries="0"/>
+                     registry="witparking-dubbo-registry" protocol="tri" timeout="5000" check="false" retries="0"/>
 
 </beans>

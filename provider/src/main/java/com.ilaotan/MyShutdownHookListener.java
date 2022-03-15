@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author tanli
+ */
 @Service
 public class MyShutdownHookListener implements ApplicationListener {
 

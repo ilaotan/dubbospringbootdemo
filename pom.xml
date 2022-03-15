@@ -28,7 +28,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
 <!--        <dubbo.version>2.7.15</dubbo.version>-->
-        <dubbo.version>3.0.2.1</dubbo.version>
+        <dubbo.version>3.0.5</dubbo.version>
+        <grpc.version>1.40.1</grpc.version>
         <nacos.version>2.0.3</nacos.version>
         <fastjson.version>1.2.79</fastjson.version>
         <nacos-config-spring-boot.version>0.2.10</nacos-config-spring-boot.version>
@@ -73,6 +74,19 @@
             <!--<artifactId>servlet-api</artifactId>-->
             <!--</exclusion>-->
             <!--</exclusions>-->
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.dubbo/dubbo-rpc-triple -->
+
+
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>3.14.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-all</artifactId>
+            <version>${grpc.version}</version>
         </dependency>
 
         <dependency>

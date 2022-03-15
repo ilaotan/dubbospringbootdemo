@@ -10,7 +10,7 @@ import org.apache.dubbo.rpc.RpcContext;
 
 
 @DubboService(
-        version = "1.0.0", protocol = "dubbo", timeout = 5000
+        version = "1.0.0", protocol = "tri", timeout = 5000
 )
 public class DemoServiceImpl implements IDemoService {
 
